@@ -1,5 +1,6 @@
 name-template: 'v$RESOLVED_VERSION 🌈'
 tag-template: 'v$RESOLVED_VERSION'
+publish: true
 prerelease: false
 categories:
   - title: '🚀 Features'
@@ -7,7 +8,7 @@ categories:
       - 'feature'
       - 'enhancement'
   - title: '🐛 Bug Fixes'
-    labels:
+    labels:-
       - 'fix'
       - 'bugfix'
       - 'bug'
