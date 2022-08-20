@@ -4,7 +4,7 @@ on:
   # schedule:
   #   - cron: '*/5 * * * *'
   workflow_dispatch:
-  
+
 permissions:
   contents: read
 
@@ -20,4 +20,15 @@ jobs:
     steps:
       - name: "First Step"
         run: echo "Hello world"
-      - uses: release-drafter/release-drafter@v5
+      # - uses: release-drafter/release-drafter@v5
+      #   env:
+      #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Development Build"
+          files: |
+            LICENSE.txt
+            *.jar
