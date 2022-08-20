@@ -4,10 +4,20 @@ on:
   # schedule:
   #   - cron: '*/5 * * * *'
   workflow_dispatch:
+  
+permissions:
+  contents: read
 
 jobs:
   my-job:
+    permissions:
+        # write permission is required to create a github release
+        contents: write
+        # write permission is required for autolabeler
+        # otherwise, read permission is required at least
+        pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - name: "First Step"
         run: echo "Hello world"
+      - uses: release-drafter/release-drafter@v5
