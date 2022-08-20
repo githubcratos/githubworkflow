@@ -21,11 +21,11 @@ jobs:
       - name: "First Step"
         run: echo "Hello world"
 
-      - uses: "marvinpinto/action-automatic-releases@v1.2.1"
+      - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
-          prerelease: true
+          automatic_release_tag: "v0.1"
+          prerelease: false
           title: "Development Build"
           files: |
             LICENSE.txt
