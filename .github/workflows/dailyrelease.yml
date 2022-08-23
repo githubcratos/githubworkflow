@@ -21,21 +21,21 @@ jobs:
       - name: "First Step"
         run: echo "Hello world"
 
-      # - uses: "marvinpinto/action-automatic-releases@latest"
-      #   with:
-      #     repo_token: "${{ secrets.GITHUB_TOKEN }}"
-      #     automatic_release_tag: "v0.1"
-      #     prerelease: false
-      #     title: "Development Build"
-      #     files: |
-      #       LICENSE.txt
-      #       *.jar
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "v0.1"
+          prerelease: false
+          title: "Development Build"
+          files: |
+            LICENSE.txt
+            *.jar
 
       # Drafts your next Release notes as Pull Requests are merged into "master"
-      - uses: release-drafter/release-drafter@v5
-        # (Optional) specify config name to use, relative to .github/. Default: release-drafter.yml
-        # with:
-        #   config-name: my-config.yml
-        #   disable-autolabeler: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - uses: release-drafter/release-drafter@v5
+      #   # (Optional) specify config name to use, relative to .github/. Default: release-drafter.yml
+      #   # with:
+      #   #   config-name: my-config.yml
+      #   #   disable-autolabeler: true
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
