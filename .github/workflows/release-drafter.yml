@@ -10,13 +10,10 @@ permissions:
   contents: read
 
 jobs:
-  pre-release:
-    name: "Pre Release"
-    runs-on: "ubuntu-latest"
-
+  release:
+    runs-on: ubuntu-latest
     steps:
-      # ...
-      - name: Create Draft Release
+    - name: Create Draft Release
       id: create_release
       uses: actions/create-release@v1
       env:
