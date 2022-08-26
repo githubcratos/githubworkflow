@@ -1,7 +1,7 @@
 name-template: 'v$RESOLVED_VERSION 🌈'
 tag-template: 'v$RESOLVED_VERSION'
-# publish: true
-prerelease: false
+# # publish: true
+# prerelease: false
 categories:
   - title: '🚀 Features'
     labels:
