@@ -1,4 +1,4 @@
-name: Schedule elease
+name: Schedule Release
 
 on:
   # schedule:
@@ -29,7 +29,6 @@ jobs:
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
           prerelease: true
           title: "Development Build"
           files: |
