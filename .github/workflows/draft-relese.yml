@@ -23,7 +23,7 @@ jobs:
       id: last_release
       uses: InsonusK/get-latest-release@v1.0.1 # https://github.com/InsonusK/get-latest-release
       with:
-        myToken: ${{ github.token }} # TODO check if set
+        myToken: ${{ secrets.GITHUB_TOKEN }} # TODO check if set
         exclude_types: "release"
         view_top: 1
 
@@ -36,18 +36,4 @@ jobs:
         echo "draft: ${{ steps.last_release.outputs.draft }}"
         echo "prerelease: ${{ steps.last_release.outputs.prerelease }}"
         
-    # This is Pseudocode.
-    - name: update release
-      id: update_release
-      uses: tubone24/update_release@v1.0
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-      with:
-        tag:  ${{ steps.create_tag.outputs.tag }}
-
-    - name: Publish Release
-    - uses: eregon/publish-release@v1 #https://github.com/elgohr/Github-Release-Action
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        release_id: ${{ steps.last_release.outputs.release_id }}
+  
