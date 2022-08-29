@@ -26,15 +26,14 @@ jobs:
         run: |
           echo "done!"
 
-      - uses: actions/checkout@v2
-      - uses: CupOfTea696/gh-action-auto-release@v1.0.0
+      - name: Get version from ref
+              id: get-version
+              run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      - name: Publish release on GitHub
+        uses: test-room-7/action-publish-release-drafts@v0
         with:
-          title: "Release: $version"
-          tag: "v$semver"
-          draft: false
-          regex: "/^Release: #{semver}$/i"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            tag-name: ${{ steps.get-version.outputs.VERSION }
       # - uses: "marvinpinto/action-automatic-releases@latest"
       #   with:
       #     repo_token: "${{ secrets.GITHUB_TOKEN }}"
