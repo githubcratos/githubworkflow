@@ -36,13 +36,11 @@ jobs:
         echo "draft: ${{ steps.last_release.outputs.draft }}"
         echo "prerelease: ${{ steps.last_release.outputs.prerelease }}"
         
-    # This is Pseudocode.
-    - name: update release
-      id: update_release
-      uses: tubone24/update_release@v1.0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN  }}
-      with:
-        tag:  ${{ steps.create_tag.outputs.tag }}
-        
-  
+    - name: Update draft to ${{ github.event.client_payload.release_tag }}
+      run: |
+        curl \
+          -u user:${{ secrets.USER_TOKEN }} \
+          -X PATCH \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/{owner}/{repository}/releases/${{ steps.last_release.outputs.release_id }} \
+          -d '{"tag_name":"${{ steps.last_release.outputs.tag_name }}", "name": "${{ steps.last_release.outputs.tag_name }}", "draft": "false"}'
