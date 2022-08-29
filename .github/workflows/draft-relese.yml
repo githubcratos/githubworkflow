@@ -10,32 +10,44 @@ permissions:
   contents: read
 
 jobs:
-  build:
-    name: Create Release
+  release:
+    name: Publish GitHub Release
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Create release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          draft: true
-          prerelease: false
-      - name: Upload release asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./path/to/asset.zip
-          asset_name: asset.zip
-          asset_content_type: application/zip
-      - name: Publish release
-        uses: StuYarrow/publish-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          id: ${{ steps.create_release.outputs.id }}
+    - uses: actions/checkout@v2
+    - name: Create tag from date
+      id: create_tag
+      run: |
+        tag=builds-$(date +%Y.%m%.d__%H:%M)
+        echo "::set-output name=tag::$tag" #  https://github.com/ruby/ruby-dev-builder/blob/master/.github/workflows/build.yml
+    - name: Get last Draft
+      id: last_release
+      uses: InsonusK/get-latest-release@v1.0.1 # https://github.com/InsonusK/get-latest-release
+      with:
+        myToken: ${{ github.token }} # TODO check if set
+        exclude_types: "release"
+        view_top: 1
+    - name: "Print result"
+        run: |
+          echo "id: ${{ steps.last_release.outputs.id }}"
+          echo "name: ${{ steps.last_release.outputs.name }}"
+          echo "tag_name: ${{ steps.last_release.outputs.tag_name }}"
+          echo "created_at: ${{ steps.last_release.outputs.created_atd }}"
+          echo "draft: ${{ steps.last_release.outputs.draft }}"
+          echo "prerelease: ${{ steps.last_release.outputs.prerelease }}"
+
+    # This is Pseudocode.
+    - name: update release
+      id: update_release
+      uses: tubone24/update_release@v1.0
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      with:
+        tag:  ${{ steps.create_tag.outputs.tag }}
+
+    - name: Publish Release
+    - uses: eregon/publish-release@v1 #https://github.com/elgohr/Github-Release-Action
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        release_id: ${{ steps.last_release.outputs.release_id }}
