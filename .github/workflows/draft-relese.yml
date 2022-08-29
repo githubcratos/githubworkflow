@@ -1,13 +1,8 @@
-name: Schedule Release
-
+name: On master merged publish release & notify
 on:
-  # schedule:
-  #   - cron: '*/5 * * * *'
-   workflow_dispatch:
-
-
-permissions:
-  contents: read
+  push:
+    branches:
+      - "master"
 
 jobs:
   release:
