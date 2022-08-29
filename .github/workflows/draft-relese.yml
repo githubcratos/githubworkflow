@@ -51,6 +51,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         release_id: ${{ steps.last_release.outputs.release_id }}
+        
     # Needs test
     # - name: Slack Notification Success
     #   uses: rtCamp/action-slack-notify@v2
@@ -62,3 +63,4 @@ jobs:
     #     SLACK_USERNAME: GH Action Parrot
     #     SLACK_ICON: https://emoji.slack-edge.com/T3LPQHAMV/headbangingparrot/1898efdc354c8ff8.gif
     #     SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
