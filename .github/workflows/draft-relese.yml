@@ -13,12 +13,12 @@ jobs:
     deploy:
         runs-on: ubuntu-latest
         steps:
-          - uses: actions/checkout@v1
-              - name: Jekyll Publish Drafts
-                uses: soywiz/github-action-jekyll-publish-drafts@master
-                with:
-                  github_token: ${{ secrets.GITHUB_TOKEN }}
-                  jekyll_path: ./
+        - uses: actions/checkout@v1
+        - name: Jekyll Publish Drafts
+          uses: soywiz/github-action-jekyll-publish-drafts@master
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            jekyll_path: ./
       # - uses: "marvinpinto/action-automatic-releases@latest"
       #   with:
       #     repo_token: "${{ secrets.GITHUB_TOKEN }}"
