@@ -58,5 +58,5 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        release_id: ${{ steps.last_release.outputs.release_id }}
+        release_id: ${{ steps.last_release.outputs.id }}
 
