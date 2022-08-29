@@ -26,19 +26,17 @@ jobs:
         tag=builds-$(date +%Y.%m%.d__%H:%M)
         echo "::set-output name=tag::$tag" #  https://github.com/ruby/ruby-dev-builder/blob/master/.github/workflows/build.yml
         
-    - uses: actions/checkout@v2
-    - name: Get Latest Release
-      id: latest_release
-      uses: vkkotha/action-get-latest-release@v1
+    - name: Get Current Release
+      id: get_current_release
+      uses: joutvhu/get-release@v1
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-    - name: Use Release Info
-      run: |
-        echo 'Latest release: ${{ steps.latest_release.outputs.release_tag }}'
+        debug: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
     - name: "Print result"
       run: |
-        echo "id: ${{ steps.node_release.outputs.id }}"
+        echo "id: ${{ steps.get_current_release.outputs.id }}"
         echo "name: ${{ steps.last_release.outputs.name }}"
         echo "tag_name: ${{ steps.last_release.outputs.tag_name }}"
         echo "created_at: ${{ steps.last_release.outputs.created_atd }}"
