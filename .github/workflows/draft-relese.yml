@@ -30,7 +30,7 @@ jobs:
       id: node_release
       uses: thebritican/fetch-latest-release@v1
       with:
-        github_token: ${{ github.token }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
         
     - name: "Print result"
       run: |
@@ -44,7 +44,7 @@ jobs:
     - name: Update draft to ${{ github.event.client_payload.release_tag }}
       run: |
         curl \
-          -u user:${{ secrets.USER_TOKEN }} \
+          -u user:${{ secrets.GITHUB_TOKEN }} \
           -X PATCH \
           -H "Accept: application/vnd.github.v3+json" \
           https://api.github.com/repos/{owner}/{repository}/releases/${{ steps.last_release.outputs.release_id }} \
