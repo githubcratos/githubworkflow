@@ -19,13 +19,14 @@ jobs:
       run: |
         tag=builds-$(date +%Y.%m%.d__%H:%M)
         echo "::set-output name=tag::$tag" #  https://github.com/ruby/ruby-dev-builder/blob/master/.github/workflows/build.yml
+        
     - name: Get last Draft
       id: last_release
       uses: InsonusK/get-latest-release@v1.0.1 # https://github.com/InsonusK/get-latest-release
       with:
         myToken: ${{ secrets.GITHUB_TOKEN }} # TODO check if set
         exclude_types: "release"
-        view_top: 1
+        view_top: 10
 
     - name: "Print result"
       run: |
