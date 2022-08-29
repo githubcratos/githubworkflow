@@ -10,30 +10,17 @@ permissions:
   contents: read
 
 jobs:
-  pre-release:
-    name: "Pre Release"
-    runs-on: "ubuntu-latest"
-    permissions:
-    # write permission is required to create a github release
-      contents: write
-      # write permission is required for autolabeler
-      # otherwise, read permission is required at least
-      pull-requests: write
-
-    steps:
-      # ...
-      - name: "Build & test"
-        run: |
-          echo "done!"
-
-      - name: Get version from ref
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Get version from ref
               id: get-version
               run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
-      - name: Publish release on GitHub
-        uses: test-room-7/action-publish-release-drafts@v0
-        with:
-            github-token: ${{ secrets.GITHUB_TOKEN }}
-            tag-name: ${{ steps.get-version.outputs.VERSION }
+            - name: Publish release on GitHub
+              uses: test-room-7/action-publish-release-drafts@v0
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  tag-name: ${{ steps.get-version.outputs.VERSION }}
       # - uses: "marvinpinto/action-automatic-releases@latest"
       #   with:
       #     repo_token: "${{ secrets.GITHUB_TOKEN }}"
