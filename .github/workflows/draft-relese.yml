@@ -14,9 +14,6 @@ jobs:
     permissions:
         # write permission is required to create a github release
         contents: write
-        # write permission is required for autolabeler
-        # otherwise, read permission is required at least
-        pull-requests: write
         
     runs-on: ubuntu-latest
     steps:
@@ -60,4 +57,3 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         release_id: ${{ steps.last_release.outputs.id }}
-
