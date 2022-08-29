@@ -59,10 +59,9 @@ jobs:
 #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #       with:
 #         release_id: ${{ steps.last_release.outputs.release_id }}
-    - uses: actions/checkout@v3
-    - name: Create a Release
-      uses: elgohr/Github-Release-Action@v4
+    - name: Publish Release
+    - uses: eregon/publish-release@v1 #https://github.com/elgohr/Github-Release-Action
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        title: MyReleaseMessage
+        release_id: ${{ steps.last_release.outputs.release_id }}
