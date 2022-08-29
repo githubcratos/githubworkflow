@@ -25,11 +25,16 @@ jobs:
       - name: "Build & test"
         run: |
           echo "done!"
-          
-      - uses: google-github-actions/release-please-action@v3
+
+      - uses: actions/checkout@v2
+      - uses: CupOfTea696/gh-action-auto-release@v1.0.0
         with:
-          release-type: node
-          package-name: release-please-action
+          title: "Release: $version"
+          tag: "v$semver"
+          draft: false
+          regex: "/^Release: #{semver}$/i"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # - uses: "marvinpinto/action-automatic-releases@latest"
       #   with:
       #     repo_token: "${{ secrets.GITHUB_TOKEN }}"
