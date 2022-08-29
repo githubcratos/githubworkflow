@@ -13,7 +13,11 @@ jobs:
     deploy:
         runs-on: ubuntu-latest
         steps:
-          - name: Publish Latest Release
-            uses: ivangabriele/publish-latest-release@v3
-            env:
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            - name: Get version from ref
+              id: get-version
+              run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+            - name: Publish release on GitHub
+              uses: test-room-7/action-publish-release-drafts@v0
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  tag-name: v0.1.0 
