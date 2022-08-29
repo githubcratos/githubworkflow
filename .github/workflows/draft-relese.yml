@@ -13,14 +13,12 @@ jobs:
     deploy:
         runs-on: ubuntu-latest
         steps:
-            - name: Get version from ref
-              id: get-version
-              run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
-            - name: Publish release on GitHub
-              uses: test-room-7/action-publish-release-drafts@v0
-              with:
-                  github-token: ${{ secrets.GITHUB_TOKEN }}
-                  tag-name: ${{ steps.get-version.outputs.VERSION }}
+          - uses: actions/checkout@v1
+              - name: Jekyll Publish Drafts
+                uses: soywiz/github-action-jekyll-publish-drafts@master
+                with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  jekyll_path: ./
       # - uses: "marvinpinto/action-automatic-releases@latest"
       #   with:
       #     repo_token: "${{ secrets.GITHUB_TOKEN }}"
