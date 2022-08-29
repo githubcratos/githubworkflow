@@ -36,4 +36,13 @@ jobs:
         echo "draft: ${{ steps.last_release.outputs.draft }}"
         echo "prerelease: ${{ steps.last_release.outputs.prerelease }}"
         
+    # This is Pseudocode.
+    - name: update release
+      id: update_release
+      uses: tubone24/update_release@v1.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN  }}
+      with:
+        tag:  ${{ steps.create_tag.outputs.tag }}
+        
   
