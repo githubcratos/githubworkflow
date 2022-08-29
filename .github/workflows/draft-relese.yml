@@ -45,9 +45,3 @@ jobs:
           https://api.github.com/repos/{owner}/{repository}/releases/${{ steps.last_release.outputs.release_id }} \
           -d '{"tag_name":"${{ steps.last_release.outputs.tag_name }}", "name": "${{ steps.last_release.outputs.tag_name }}", "draft": "false"}'
           
-    - name: Publish Release
-    - uses: eregon/publish-release@v1 #https://github.com/elgohr/Github-Release-Action
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        release_id: ${{ steps.last_release.outputs.release_id }}
