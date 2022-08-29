@@ -13,14 +13,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: "call action"
+    - uses: actions/checkout@v2
+    - name: Create tag from date
+      id: create_tag
+      run: |
+        tag=builds-$(date +%Y.%m%.d__%H:%M)
+        echo "::set-output name=tag::$tag" #  https://github.com/ruby/ruby-dev-builder/blob/master/.github/workflows/build.yml
+    - name: Get last Draft
       id: last_release
-      uses: InsonusK/get-latest-release@v1.0.1
+      uses: InsonusK/get-latest-release@v1.0.1 # https://github.com/InsonusK/get-latest-release
       with:
-        myToken: ${{ github.token }}
+        myToken: ${{ github.token }} # TODO check if set
         exclude_types: "release"
         view_top: 1
+
     - name: "Print result"
       run: |
         echo "id: ${{ steps.last_release.outputs.id }}"
